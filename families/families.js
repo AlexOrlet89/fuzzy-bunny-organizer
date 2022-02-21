@@ -8,7 +8,7 @@ const logoutButton = document.getElementById('logout');
 logoutButton.addEventListener('click', () => {
     logout();
 });
-
+getFamilies();
 function displayFamilies() {
     // fetch families from supabase
 
