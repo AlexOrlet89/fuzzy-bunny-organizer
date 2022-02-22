@@ -37,10 +37,21 @@ async function displayFamilies() {
         // put the family name in the name element
         nameEl.textContent = `${family.name}`;
         // for each of this family's bunnies
-        // for (let bunny of )
-        //    make an element with the css class 'bunny', and put the bunny's name in the text content
-        //    add an event listener to the bunny el. On click, delete the bunny, then refetch and redisplay all families.
-        // append this bunnyEl to the bunniesEl'
+        console.log(family);
+        for (let bunny of family.fuzzy_bunnies) {
+            //    make an element with the css class 'bunny', and put the bunny's name in the text content
+            const bunnyEl = document.createElement('div');
+            bunnyEl.classList.add('bunny');
+            bunnyEl.textContent = bunny.name;
+            //    add an event listener to the bunny el. On click, delete the bunny, then refetch and redisplay all families.
+            bunnyEl.addEventListener('click', async ()=> {
+                console.log('bunny id', bunny.id);
+                await deleteBunny(bunny.id);
+                await displayFamilies();
+            });
+            // append this bunnyEl to the bunniesEl'
+            bunniesDiv.append(bunnyEl);
+        }
         familyDiv.append(nameEl, bunniesDiv);
         familiesEl.append(familyDiv);
     }
@@ -54,5 +65,5 @@ async function displayFamilies() {
 window.addEventListener('load', async () => {
     const families = await getFamilies();
 
-    displayFamilies(families);
+    await displayFamilies(families);
 });
