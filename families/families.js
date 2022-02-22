@@ -14,9 +14,7 @@ async function displayFamilies() {
     const families = await getFamilies();
     familiesEl.textContent = '';
     // clear out the familiesEl
-    console.log(families);
     for (let family of families) {
-        console.log(family);
         // create three elements for each family, one for the whole family, one to hold the name, and one to hold the bunnies
         // your HTML Element should look like this:
         // <div class="family">
@@ -37,7 +35,6 @@ async function displayFamilies() {
         // put the family name in the name element
         nameEl.textContent = `${family.name}`;
         // for each of this family's bunnies
-        console.log(family);
         for (let bunny of family.fuzzy_bunnies) {
             //    make an element with the css class 'bunny', and put the bunny's name in the text content
             const bunnyEl = document.createElement('div');
@@ -45,21 +42,20 @@ async function displayFamilies() {
             bunnyEl.textContent = bunny.name;
             //    add an event listener to the bunny el. On click, delete the bunny, then refetch and redisplay all families.
             bunnyEl.addEventListener('click', async ()=> {
-                console.log('bunny id', bunny.id);
                 await deleteBunny(bunny.id);
                 await displayFamilies();
             });
             // append this bunnyEl to the bunniesEl'
             bunniesDiv.append(bunnyEl);
         }
+        // append the bunniesEl and nameEl to the familyEl
         familyDiv.append(nameEl, bunniesDiv);
+        // append the familyEl to the familiesEl
         familiesEl.append(familyDiv);
     }
     return familiesEl;
 
-    // append the bunniesEl and nameEl to the familyEl
 
-    // append the familyEl to the familiesEl
 }
 
 window.addEventListener('load', async () => {

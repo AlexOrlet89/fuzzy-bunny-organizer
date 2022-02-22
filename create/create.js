@@ -28,7 +28,6 @@ window.addEventListener('load', async () => {
     // go get the families from supabase
     const families = await getFamilies();
     // for each family
-    console.log(families);
     for (let family of families) {
         
         // create an option tag
@@ -38,8 +37,6 @@ window.addEventListener('load', async () => {
         option.textContent = `${family.name}`;
         option.value = `${family.id}`;    
         // and append the option to the select
-        console.log(familyId);
-        console.log(option);
         familyId.append(option);
     }
     return familyId;
